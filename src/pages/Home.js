@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountry } from '../features/countries/countrySlice';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const countries = useSelector(state => state.countries);
@@ -14,6 +15,10 @@ const Home = () => {
             <div>
                 <h1>This is home</h1>
             </div>
+            <div>
+                <Link to='/countries'>All Country</Link>
+            </div>
+            <Link to='/favourites'>Favourites Country</Link>
         </div>
     );
 };
