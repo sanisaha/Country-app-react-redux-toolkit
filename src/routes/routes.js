@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Country from "../pages/Country";
 import Favourites from "../pages/Favourites";
 import SingleCountry from "../components/SingleCountry";
+import Login from "../credentials/Login";
+import Register from "../credentials/Register";
 
 
 
@@ -29,6 +31,16 @@ const routes = createBrowserRouter([
             {
                 path: '/countries/:single',
                 element: <SingleCountry />
+            }
+            ,
+            {
+                path: '/login',
+                element: <Login />
+            }
+            ,
+            {
+                path: '/register',
+                element: <Register />
             }
         ]
     }

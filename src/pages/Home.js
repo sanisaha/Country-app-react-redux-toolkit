@@ -19,6 +19,10 @@ const Home = () => {
                 <Link to='/countries'>All Country</Link>
             </div>
             <Link to='/favourites'>Favourites Country</Link>
+            <div>
+                <Link to='/login'>Login</Link>
+            </div>
+            <Link to='/register'>Register</Link>
         </div>
     );
 };
