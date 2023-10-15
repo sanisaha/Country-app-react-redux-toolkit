@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
-import { clearFavourites } from '../features/favourites/favouritesSlice';
+import { clearFavourites, getFavouriteCountry } from '../features/favourites/favouritesSlice';
 import CountryCard from '../components/CountryCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountry } from '../features/countries/countrySlice';
+import { AuthContext } from '../Context/AuthProvider';
+
 
 const Favourites = () => {
-    const dispatch = useDispatch()
 
+    const dispatch = useDispatch()
+    const { user } = useContext(AuthContext);
     let countriesList = useSelector((state) => state.countries.countries)
     const loading = useSelector((state) => state.countries.loading)
     const [search, setSearch] = useState("")
-    const favouritesList = useSelector((state) => state.favourites.favourites)
+    const favouritesList = useSelector((state) => state.favourites.favouriteCountry)
 
     if (favouritesList !== null) {
-        countriesList = countriesList.filter(c => favouritesList.includes(c.name.common))
+        countriesList = countriesList.filter(country => favouritesList.includes(country.name.common))
     }
     else {
         countriesList = []
@@ -22,7 +25,10 @@ const Favourites = () => {
 
     useEffect(() => {
         dispatch(getCountry())
-    }, [dispatch])
+        dispatch(getFavouriteCountry(user))
+    }, [dispatch, user])
+
+
 
     if (loading) {
         return (

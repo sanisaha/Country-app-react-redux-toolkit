@@ -3,11 +3,13 @@ import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountry } from '../features/countries/countrySlice';
 import CountryCard from '../components/CountryCard';
+import toast from 'react-hot-toast';
+import { togglepostSuccess } from '../features/favourites/favouritesSlice';
 
 const Country = () => {
     const dispatch = useDispatch();
     const countriesList = useSelector((state) => state.countries.countries);
-    const loading = useSelector((state) => state.countries.isLoading);
+    const { isLoading, postSuccess, isError, error } = useSelector((state) => state.favourites)
 
     const [search, setSearch] = useState('')
 
@@ -15,6 +17,19 @@ const Country = () => {
         dispatch(getCountry())
     },
         [dispatch])
+
+
+    useEffect(() => {
+
+
+        if (!isLoading && postSuccess) {
+            toast.success("Added to favourites", { id: 'addFavorite' })
+            dispatch(togglepostSuccess())
+        }
+        if (!isLoading && isError) {
+            toast.error(error, { id: 'addFavorite' })
+        }
+    }, [isLoading, postSuccess, isError, error, dispatch])
     return (
         <Container fluid>
             <Row>

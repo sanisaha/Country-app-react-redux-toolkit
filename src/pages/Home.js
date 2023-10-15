@@ -3,17 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCountry } from '../features/countries/countrySlice';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
+import { getFavouriteCountry } from '../features/favourites/favouritesSlice';
 
 const Home = () => {
     const { user, logOut } = useContext(AuthContext);
     const countries = useSelector(state => state.countries);
+    const favouriteCountry = useSelector((state) => state.favourites.favouriteCountry)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCountry());
+        dispatch(getFavouriteCountry())
     }, [dispatch]);
     const handleLogOut = () => {
         logOut();
     }
+
 
     return (
         <div>

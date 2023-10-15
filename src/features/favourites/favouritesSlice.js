@@ -1,19 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchFavouriteCountries, postFavouriteCountries } from './favouritesAPI';
 
 
+const initialState = {
+    isLoading: false,
+    isError: false,
+    postSuccess: false,
+    error: '',
+    favouriteCountry: [],
+};
 
-const favourites = localStorage.getItem('favourites') !== null ? JSON.parse(localStorage.getItem('favourites')) : []
+export const getFavouriteCountry = createAsyncThunk("favouriteCountry/getFavouritesCountry", async (user) => {
+    const data = fetchFavouriteCountries(user?.email);
+    return data;
+})
+export const addFavouriteCountry = createAsyncThunk("favouriteCountry/addFavouritesCountry", async (countryData) => {
+    const data = postFavouriteCountries(countryData);
+    return data;
+})
+
 
 const favouritesSlice = createSlice({
     name: 'favourites',
-    initialState: {
-        favourites,
-    },
+    initialState,
     reducers: {
         addFavourite: (state, action) => {
-            if (state.favourites.some(fav => fav === action.payload)) state.favourites = [...state.favourites]
-            state.favourites = [...state.favourites, action.payload]
-            localStorage.setItem('favourites', JSON.stringify(state.favourites))
+
+        },
+        togglepostSuccess: (state, action) => {
+            state.postSuccess = !state.postSuccess
         },
         removeFavourite: (state, action) => {
             const newArray = [...state.favourites]
@@ -24,9 +39,41 @@ const favouritesSlice = createSlice({
             localStorage.removeItem('favourites')
             state.favourites = []
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getFavouriteCountry.pending, (state) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+            .addCase(getFavouriteCountry.fulfilled, (state, action) => {
+                state.favouriteCountry = action.payload;
+                state.isLoading = false;
+            })
+            .addCase(getFavouriteCountry.rejected, (state, action) => {
+                state.favouriteCountry = [];
+                state.isLoading = false;
+                state.isError = true;
+                state.error = action.error.message;
+            })
+            .addCase(addFavouriteCountry.pending, (state) => {
+                state.isLoading = true;
+                state.postSuccess = false;
+                state.isError = false;
+            })
+            .addCase(addFavouriteCountry.fulfilled, (state) => {
+                state.postSuccess = true;
+                state.isLoading = false;
+            })
+            .addCase(addFavouriteCountry.rejected, (state, action) => {
+                state.favouriteCountry = [];
+                state.isLoading = false;
+                state.postSuccess = false;
+                state.isError = true;
+                state.error = action.error.message;
+            })
     }
 });
 
-export const { addFavourite, removeFavourite, clearFavourites } = favouritesSlice.actions
+export const { addFavourite, removeFavourite, clearFavourites, togglepostSuccess } = favouritesSlice.actions
 
 export default favouritesSlice.reducer

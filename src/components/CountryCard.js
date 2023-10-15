@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Card, Col, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { addFavourite, removeFavourite } from '../features/favourites/favouritesSlice';
+import { addFavouriteCountry, getFavouriteCountry, removeFavourite } from '../features/favourites/favouritesSlice';
+import { AuthContext } from '../Context/AuthProvider';
 
 const CountryCard = ({ country }) => {
-    const favouritesList = useSelector(state => state.favourites.favourites);
+    const favouritesList = useSelector(state => state.favourites.favouriteCountry);
     const dispatch = useDispatch();
+    const { user } = useContext(AuthContext);
+    useEffect(() => {
+        if (user) {
+            dispatch(getFavouriteCountry(user))
+        }
+    }, [dispatch, user]);
     return (
         <Col className="mt-5">
 
@@ -14,11 +21,11 @@ const CountryCard = ({ country }) => {
                 {favouritesList?.includes(country.name.common) ? (
                     <button
                         className="bi bi-heart-fill text-danger m-1 p-1"
-                        onClick={() => dispatch(removeFavourite(country.name.common))}></button>
+                        onClick={() => dispatch(removeFavourite(country.name.common))}>remove from favourite</button>
                 ) : (
                     <button
                         className="bi bi-heart text-danger m-1 p-1"
-                        onClick={() => dispatch(addFavourite(country.name.common))}></button>
+                        onClick={() => dispatch(addFavouriteCountry({ userEmail: user.email, data: country.name.common }))}>add to favourite</button>
                 )}
                 <LinkContainer
                     to={`/countries/${country.name.common}`}
