@@ -5,7 +5,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const { logIn, providerLogin } = useContext(AuthContext);
+    const { logIn, providerLogin, setLoading } = useContext(AuthContext);
     const [error, setError] = useState(null);
     const googleProvider = new GoogleAuthProvider();
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ const Login = () => {
         logIn(email, password)
             .then(result => {
                 const user = result.user;
+                setLoading(false);
                 navigate('/');
             })
             .catch(error => {

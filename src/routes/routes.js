@@ -6,6 +6,7 @@ import Favourites from "../pages/Favourites";
 import SingleCountry from "../components/SingleCountry";
 import Login from "../credentials/Login";
 import Register from "../credentials/Register";
+import PrivateRoutes from "./PrivateRoutes";
 
 
 
@@ -25,7 +26,7 @@ const routes = createBrowserRouter([
             ,
             {
                 path: '/favourites',
-                element: <Favourites />
+                element: <PrivateRoutes><Favourites /></PrivateRoutes>
             }
             ,
             {

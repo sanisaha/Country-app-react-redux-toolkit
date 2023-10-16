@@ -4,7 +4,7 @@ import { AuthContext } from '../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-    const { createNewUser } = useContext(AuthContext);
+    const { createNewUser, setLoading } = useContext(AuthContext);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const handleUserCreate = (event) => {
@@ -14,6 +14,7 @@ const Register = () => {
         createNewUser(email, password)
             .then(result => {
                 const user = result.user;
+                setLoading(false);
                 navigate('/');
 
             })
