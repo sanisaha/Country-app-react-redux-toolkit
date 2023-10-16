@@ -6,37 +6,12 @@ import { AuthContext } from '../Context/AuthProvider';
 import { getFavouriteCountry } from '../features/favourites/favouritesSlice';
 
 const Home = () => {
-    const { user, logOut } = useContext(AuthContext);
-    const countries = useSelector(state => state.countries);
-    const favouriteCountry = useSelector((state) => state.favourites.favouriteCountry)
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getCountry());
-        dispatch(getFavouriteCountry())
-    }, [dispatch]);
-    const handleLogOut = () => {
-        logOut();
-    }
-
-
     return (
+
         <div>
-            {countries.isLoading && <h1>Loading...</h1>}
-            <div>
-                <h1>This is home</h1>
-            </div>
-            <div>
-                <Link to='/countries'>All Country</Link>
-            </div>
-            <Link to='/favourites'>Favourites Country</Link>
-            <div>
-                <Link to='/login'>Login</Link>
-            </div>
-            <Link to='/register'>Register</Link>
-            {user && <div>
-                <button onClick={handleLogOut}>Log Out</button>
-            </div>}
+            <h1>This is home</h1>
         </div>
+
     );
 };
 

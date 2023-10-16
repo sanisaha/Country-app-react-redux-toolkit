@@ -8,6 +8,7 @@ import { togglepostSuccess } from '../features/favourites/favouritesSlice';
 
 const Country = () => {
     const dispatch = useDispatch();
+    const countries = useSelector(state => state.countries);
     const countriesList = useSelector((state) => state.countries.countries);
     const { isLoading, postSuccess, isError, error } = useSelector((state) => state.favourites)
 
@@ -32,6 +33,7 @@ const Country = () => {
     }, [isLoading, postSuccess, isError, error, dispatch])
     return (
         <Container fluid>
+            {countries.isLoading && <h1>Loading...</h1>}
             <Row>
                 <Col className="mt-5 d-flex justify-content-center">
                     <Form>
