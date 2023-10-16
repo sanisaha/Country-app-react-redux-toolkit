@@ -32,38 +32,49 @@ const Country = () => {
         }
     }, [isLoading, postSuccess, isError, error, dispatch])
     return (
-        <Container fluid>
-            {countries.isLoading && <h1>Loading...</h1>}
-            <Row>
-                <Col className="mt-5 d-flex justify-content-center">
-                    <Form>
-                        <Form.Control
-                            style={{ width: '18rem' }}
-                            type="search"
-                            className="me-2 "
-                            placeholder="Search for countries"
-                            aria-label="Search"
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </Form>
-                </Col>
-            </Row>
-            <Row xs={2} md={3} lg={4} className=" g-3">
-                {/* {countriesList.reduce((acc, country) => {
+
+        <div>
+            {countries.isLoading ? <div class="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading . . . .</span>
+                </div>
+            </div> :
+                <Container fluid>
+                    <Row>
+                        <Col className="mt-5 d-flex justify-content-center">
+                            <Form>
+                                <Form.Control
+                                    style={{ width: '18rem' }}
+                                    type="search"
+                                    className="me-2 "
+                                    placeholder="Search for countries"
+                                    aria-label="Search"
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                            </Form>
+                        </Col>
+                    </Row>
+                    <Row xs={2} md={3} lg={4} className=" g-3">
+                        {/* {countriesList.reduce((acc, country) => {
             if (country.name.official.toLowerCase().includes(search.toLowerCase())) {
              acc.push(<CountryCard key={country.name} country={country} />);
           }
           return acc;
           }, [])} */}
-                {countriesList
-                    .filter((c) => {
-                        return c.name.official.toLowerCase().includes(search.toLowerCase());
-                    })
-                    .map((country) => (
-                        <CountryCard key={country.name.common} country={country} />
-                    ))}
-            </Row>
-        </Container>
+                        {countriesList
+                            .filter((c) => {
+                                return c.name.official.toLowerCase().includes(search.toLowerCase());
+                            })
+                            .map((country) => (
+                                <CountryCard key={country.name.common} country={country} />
+                            ))}
+                    </Row>
+                </Container>
+            }
+
+        </div>
+
+
     );
 };
 

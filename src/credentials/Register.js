@@ -4,19 +4,22 @@ import { AuthContext } from '../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-    const { createNewUser, logOut } = useContext(AuthContext);
+    const { createNewUser } = useContext(AuthContext);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
     const handleUserCreate = (event) => {
         event.preventDefault()
         const email = event.target.email.value;
         const password = event.target.password.value;
         createNewUser(email, password)
             .then(result => {
-                logOut();
                 const user = result.user;
+                navigate('/');
 
             })
             .catch(error => {
-                document.getElementById('error').innerHTML = error.message;
+                setError(error.message);
+                event.target.reset();
             })
 
     }
@@ -39,6 +42,9 @@ const Register = () => {
                     </FormGroup>
                     <Button type="submit" bg="primary">Register</Button>
                 </form>
+                <div className='text-center'>
+                    <p className='text-danger'>{error}</p>
+                </div>
             </Row>
         </div>
     );

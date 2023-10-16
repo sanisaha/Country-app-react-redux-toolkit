@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
@@ -9,7 +9,7 @@ const Header = () => {
         logOut();
     }
     return (
-        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+        <Navbar collapseOnSelect expand="lg" className="bg-white">
             <Container>
                 <Navbar.Brand href="#home">Country-App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
