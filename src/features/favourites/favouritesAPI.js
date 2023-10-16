@@ -6,3 +6,6 @@ export const fetchFavouriteCountries = async (user) => {
 export const postFavouriteCountries = async (countryData) => {
     await axios.post('/addfavourite', countryData);
 }
+export const deleteFavouriteCountries = async (email, data) => {
+    await axios.delete(`/deleteonecountry/param1=${email}&param2=${data}`);
+}
