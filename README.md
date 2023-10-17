@@ -30,6 +30,9 @@ Live page [here](https://country-project-60698.web.app/)
 ## Screenshot
 
 <img src="src/assets/images/mobile1.png">
+<img src="src/assets/images/mobile2.png">
+<img src="src/assets/images/desktop1.png">
+<img src="src/assets/images/desktop2.png">
 
 ## Authors and acknowledgment
 
