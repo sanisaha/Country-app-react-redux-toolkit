@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
-import { clearFavourites, getFavouriteCountry } from '../features/favourites/favouritesSlice';
+import { deleteAllFavouriteCountry, getFavouriteCountry } from '../features/favourites/favouritesSlice';
 import CountryCard from '../components/CountryCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountry } from '../features/countries/countrySlice';
@@ -58,13 +58,13 @@ const Favourites = () => {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </Form>
+                    <div xs={2} md={3} lg={4} className=" g-3">
+                        <Button onClick={() => dispatch(deleteAllFavouriteCountry({ userEmail: user.email, data: 'delete all' }))} className='btn-danger'>Clear All Favourites</Button>
+                    </div>
                 </Col>
+
             </Row>
-            <Row xs={2} md={3} lg={4} className=" g-3">
-                <Button onClick={() => {
-                    dispatch(clearFavourites())
-                }}>Clear Favourites</Button>
-            </Row>
+
             <Row xs={2} md={3} lg={4} className=" g-3">
                 {countriesList
                     .filter((c) => {

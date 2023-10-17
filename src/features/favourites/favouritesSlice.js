@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { deleteFavouriteCountries, fetchFavouriteCountries, postFavouriteCountries } from './favouritesAPI';
+import { deleteAllFavouriteCountries, deleteFavouriteCountries, fetchFavouriteCountries, postFavouriteCountries } from './favouritesAPI';
 
 
 const initialState = {
@@ -19,8 +19,14 @@ export const addFavouriteCountry = createAsyncThunk("favouriteCountry/addFavouri
     const data = postFavouriteCountries(countryData);
     return data;
 })
-export const deleteFavouriteCountry = createAsyncThunk("favouriteCountry/deleteFavouritesCountry", async (countryData) => {
+export const deleteFavouriteCountry = createAsyncThunk("favouriteCountry/deleteFavouritesCountry", async (countryData, thunkAPI) => {
     const data = deleteFavouriteCountries(countryData.userEmail, countryData.data);
+    thunkAPI.dispatch(removeFavouriteCountry(countryData.data));
+    return data;
+})
+export const deleteAllFavouriteCountry = createAsyncThunk("favouriteCountry/deleteAllFavouritesCountry", async (user, thunkAPI) => {
+    const data = deleteAllFavouriteCountries(user.userEmail);
+    thunkAPI.dispatch(removeAllFavouriteCountry());
     return data;
 })
 
@@ -29,20 +35,14 @@ const favouritesSlice = createSlice({
     name: 'favourites',
     initialState,
     reducers: {
-        addFavourite: (state, action) => {
-
-        },
         togglepostSuccess: (state, action) => {
             state.postSuccess = !state.postSuccess
         },
-        removeFavourite: (state, action) => {
-            const newArray = [...state.favourites]
-            newArray.splice(newArray.findIndex(e => e === action.payload), 1)
-            state.favourites = [...newArray]
+        removeFavouriteCountry: (state, action) => {
+            state.favouriteCountry = state.favouriteCountry.filter(item => item !== action.payload)
         },
-        clearFavourites: (state, action) => {
-            localStorage.removeItem('favourites')
-            state.favourites = []
+        removeAllFavouriteCountry: (state) => {
+            state.favouriteCountry = []
         }
     },
     extraReducers: (builder) => {
@@ -90,9 +90,24 @@ const favouritesSlice = createSlice({
                 state.isError = true;
                 state.error = action.error.message;
             })
+            .addCase(deleteAllFavouriteCountry.pending, (state) => {
+                state.isLoading = true;
+                state.deleteSuccess = false;
+                state.isError = false;
+            })
+            .addCase(deleteAllFavouriteCountry.fulfilled, (state) => {
+                state.deleteSuccess = true;
+                state.isLoading = false;
+            })
+            .addCase(deleteAllFavouriteCountry.rejected, (state, action) => {
+                state.isLoading = false;
+                state.deleteSuccess = false;
+                state.isError = true;
+                state.error = action.error.message;
+            })
     }
 });
 
-export const { addFavourite, removeFavourite, clearFavourites, togglepostSuccess } = favouritesSlice.actions
+export const { togglepostSuccess, removeFavouriteCountry, removeAllFavouriteCountry } = favouritesSlice.actions
 
 export default favouritesSlice.reducer

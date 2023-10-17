@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Card, Col, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { addFavouriteCountry, deleteFavouriteCountry, getFavouriteCountry, removeFavourite } from '../features/favourites/favouritesSlice';
+import { addFavouriteCountry, deleteFavouriteCountry, getFavouriteCountry } from '../features/favourites/favouritesSlice';
 import { AuthContext } from '../Context/AuthProvider';
 
 const CountryCard = ({ country }) => {
