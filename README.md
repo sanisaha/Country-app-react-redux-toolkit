@@ -18,14 +18,18 @@ Built with:
 
 ## Setup and usage
 
-Live page [here](https://github.com/sanisaha)
+Live page [here](https://country-project-60698.web.app/)
+
+- User can search any country from country page
+- Get current weather of any country by clicking it
+- The favourite page will only work for logged in users
+- Registered user will also have the access of add or delete favourite countries.
+
+
 
 ## Screenshot
 
-## Sources 
-
-- 
-- 
+<img src="src/assets/images/mobile1.png">
 
 ## Authors and acknowledgment
 

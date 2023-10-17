@@ -6,6 +6,7 @@ import app from '../firebase/firebase.config';
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
+// we are creating a context here, so that we can use it in other components
 const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
@@ -18,6 +19,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
+    // provider login(like google, facebook, github)
     const providerLogin = (provider) => {
         setLoading(true);
         return signInWithPopup(auth, provider);

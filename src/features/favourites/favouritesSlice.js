@@ -15,15 +15,18 @@ export const getFavouriteCountry = createAsyncThunk("favouriteCountry/getFavouri
     const data = fetchFavouriteCountries(user?.email);
     return data;
 })
+
 export const addFavouriteCountry = createAsyncThunk("favouriteCountry/addFavouritesCountry", async (countryData) => {
     const data = postFavouriteCountries(countryData);
     return data;
 })
+//thunkAPI is an object that contains all Redux Toolkit-specific functions, including dispatch, getState, and extra. thunkAPI.dispatch is the Redux dispatch function, which we can use to dispatch other actions.
 export const deleteFavouriteCountry = createAsyncThunk("favouriteCountry/deleteFavouritesCountry", async (countryData, thunkAPI) => {
     const data = deleteFavouriteCountries(countryData.userEmail, countryData.data);
     thunkAPI.dispatch(removeFavouriteCountry(countryData.data));
     return data;
 })
+
 export const deleteAllFavouriteCountry = createAsyncThunk("favouriteCountry/deleteAllFavouritesCountry", async (user, thunkAPI) => {
     const data = deleteAllFavouriteCountries(user.userEmail);
     thunkAPI.dispatch(removeAllFavouriteCountry());

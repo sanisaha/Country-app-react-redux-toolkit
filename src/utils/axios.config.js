@@ -5,7 +5,7 @@ switch (process.env.REACT_APP_ENV) {
         URL = 'http://localhost:5000';
         break;
     case 'production':
-        URL = 'https://itsComing.com';
+        URL = 'https://country-app-server-rgm4h2h3m-sanisaha.vercel.app';
         break;
     default:
         URL = 'http://localhost:5000';

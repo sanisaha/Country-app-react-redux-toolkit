@@ -8,6 +8,8 @@ export const store = configureStore({
     countries: countrySlice,
     favourites: favouritesSlice,
   },
+  //getDefaultMiddleware() returns an array of middleware that is included by default.
+  //We can add more middleware to this array by calling concat() on the array and passing in the new middleware.
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false
   }).concat()

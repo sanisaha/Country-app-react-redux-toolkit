@@ -15,6 +15,7 @@ const PrivateRoutes = ({ children }) => {
         </div>)
     }
     if (!user) {
+        //return to login page if user is not logged in, state is used to redirect to the page from where user is redirected to login page
         return <Navigate to='/login' state={{ from: location }} replace></Navigate>;
     }
     return children;

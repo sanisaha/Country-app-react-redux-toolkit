@@ -59,6 +59,7 @@ const Favourites = () => {
                         />
                     </Form>
                     <div xs={2} md={3} lg={4} className=" g-3">
+                        {/** here we are dispatching the action to delete all the favourite countries of the user and sending the user email and data as a payload */}
                         <Button onClick={() => dispatch(deleteAllFavouriteCountry({ userEmail: user.email, data: 'delete all' }))} className='btn-danger'>Clear All Favourites</Button>
                     </div>
                 </Col>

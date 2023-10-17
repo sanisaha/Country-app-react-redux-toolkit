@@ -7,22 +7,22 @@ import toast from 'react-hot-toast';
 import { togglepostSuccess } from '../features/favourites/favouritesSlice';
 
 const Country = () => {
+
     const dispatch = useDispatch();
     const countries = useSelector(state => state.countries);
     const countriesList = useSelector((state) => state.countries.countries);
     const { isLoading, postSuccess, isError, error } = useSelector((state) => state.favourites)
-
     const [search, setSearch] = useState('')
 
     useEffect(() => {
+        //here we are dispatching the action to get the countries
         dispatch(getCountry())
     },
         [dispatch])
 
 
     useEffect(() => {
-
-
+        //here we are checking if the postSuccess is true or not and then showing the toast accordingly
         if (!isLoading && postSuccess) {
             toast.success("Added to favourites", { id: 'addFavorite' })
             dispatch(togglepostSuccess())
@@ -34,7 +34,7 @@ const Country = () => {
     return (
 
         <div>
-            {countries.isLoading ? <div class="d-flex justify-content-center">
+            {countries.isLoading ? <div className="d-flex justify-content-center">
                 <div className="spinner-border" role="status">
                     <span className="sr-only">Loading . . . .</span>
                 </div>
