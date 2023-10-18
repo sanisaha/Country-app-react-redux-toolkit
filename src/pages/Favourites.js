@@ -12,7 +12,7 @@ const Favourites = () => {
     const dispatch = useDispatch()
     const { user } = useContext(AuthContext);
     let countriesList = useSelector((state) => state.countries.countries)
-    const loading = useSelector((state) => state.countries.loading)
+    const loading = useSelector((state) => state.countries.isLoading)
     const [search, setSearch] = useState("")
     const favouritesList = useSelector((state) => state.favourites.favouriteCountry)
 
